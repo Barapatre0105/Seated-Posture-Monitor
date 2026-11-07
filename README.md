@@ -104,3 +104,18 @@ undetected frames so a brief camera occlusion does not drag the score down.
   MediaPipe may fail to detect the pose. Use a camera angle above the desk.
 - **Non-seated postures** — the features are designed for seated upper-body posture.
   Standing or lying down will produce meaningless deviations.
+
+## Development notes
+
+The `learning_steps/` folder shows how the project was built incrementally:
+
+| File | What it explores |
+|------|-----------------|
+| `step1_cli.py` | Basic CLI argument parsing |
+| `step2_frames.py` | Webcam capture loop with OpenCV |
+| `step3_landmarks.py` | MediaPipe Pose landmark detection |
+| `step4_features.py` | Feature extraction (shoulder tilt, ear offset) |
+| `step5_flicker_demo.py` | Alpha-blending overlay to fix flickering labels |
+
+Each step was tested independently before the ideas were merged into
+`posture_monitor.py`. The git history reflects that progression.
