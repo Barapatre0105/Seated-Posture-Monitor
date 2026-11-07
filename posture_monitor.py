@@ -183,9 +183,22 @@ def build_landmarker(model_path: str):
 # ═══════════════════════════════════════════════════════════════════════════
 
 def open_source(source_arg: str) -> cv2.VideoCapture:
+    """
+    Open a webcam index or video file path.
+
+    On Windows we prefer CAP_DSHOW for integer sources because it suppresses
+    the noisy 'VIDEOIO' warnings that flood stderr with the default backend.
+    Falls back to any available backend for file paths.
+    """
     try:
-        cap = cv2.VideoCapture(int(source_arg), cv2.CAP_DSHOW)
+        idx = int(source_arg)
+        cap = cv2.VideoCapture(idx, cv2.CAP_DSHOW)
+        if not cap.isOpened():
+            # CAP_DSHOW failed — try without backend hint (Linux / macOS path)
+            cap.release()
+            cap = cv2.VideoCapture(idx)
     except ValueError:
+        # source_arg is a file path, not an integer
         cap = cv2.VideoCapture(source_arg)
     return cap
 
