@@ -1,2 +1,5 @@
-mediapipe>=0.10.30
-numpy>=1.24
+# Core runtime dependencies
+# opencv-python is bundled inside mediapipe — do NOT add it separately
+# or you risk a double-install that breaks imshow on some platforms.
+mediapipe>=0.10.14   # PoseLandmarker Tasks API stable since 0.10.14
+numpy>=1.24,<3       # numpy 2.x is compatible; cap at 3 for safety
