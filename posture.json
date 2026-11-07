@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "session": {
+    "source": "0",
+    "requested_duration_s": 60.0,
+    "actual_duration_s": 62.4,
+    "total_frames": 700,
+    "detected_frames": 700,
+    "classified_frames": 628,
+    "detection_rate": 1.0
+  },
+  "baseline": {
+    "duration_s": 10,
+    "vertical_drop_mean": -1.13382,
+    "ear_asymmetry_mean": 0.05196,
+    "vertical_drop_std": 0.0213,
+    "ear_asymmetry_std": 0.00934
+  },
+  "thresholds": {
+    "enter": 0.12,
+    "exit": 0.07,
+    "min_hold_s": 2.0,
+    "median_window_frames": 15
+  },
+  "summary": {
+    "score": 48,
+    "fraction_good": 0.4759,
+    "good_time_s": 24.46,
+    "bad_time_s": 26.94,
+    "total_classified_s": 51.4,
+    "num_bad_episodes": 1,
+    "avg_bad_episode_s": 26.94
+  },
+  "episodes": [
+    {
+      "state": "GOOD",
+      "start_s": 0.044,
+      "end_s": 24.507,
+      "duration_s": 24.463
+    },
+    {
+      "state": "BAD",
+      "start_s": 24.507,
+      "end_s": 51.448,
+      "duration_s": 26.941
+    }
+  ]
+}
