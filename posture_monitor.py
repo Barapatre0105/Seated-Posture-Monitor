@@ -143,7 +143,35 @@ def parse_args() -> argparse.Namespace:
                    help="Show a live OpenCV window (optional, not headless)")
     p.add_argument("--debug-csv", default="",
                    help="Write per-frame debug data to this CSV file")
-    return p.parse_args()
+    p.add_argument(
+        "--sensitivity",
+        choices=["low", "medium", "high"],
+        default=None,
+        help=(
+            "Convenience preset that overrides --enter / --exit thresholds. "
+            "low=forgiving (enter=0.18, exit=0.10), "
+            "medium=default (enter=0.12, exit=0.07), "
+            "high=strict (enter=0.07, exit=0.04). "
+            "Explicit --enter / --exit values take precedence."
+        ),
+    )
+    args = p.parse_args()
+
+    # Apply sensitivity preset BEFORE returning so explicit flags still win
+    _SENSITIVITY_PRESETS = {
+        "low":    (0.18, 0.10),
+        "medium": (0.12, 0.07),
+        "high":   (0.07, 0.04),
+    }
+    if args.sensitivity:
+        preset_enter, preset_exit = _SENSITIVITY_PRESETS[args.sensitivity]
+        # Only override if the user did NOT explicitly pass --enter / --exit
+        if args.enter == DEFAULT_ENTER_THRESH:
+            args.enter = preset_enter
+        if args.exit_thresh == DEFAULT_EXIT_THRESH:
+            args.exit_thresh = preset_exit
+
+    return args
 
 
 # ═══════════════════════════════════════════════════════════════════════════
